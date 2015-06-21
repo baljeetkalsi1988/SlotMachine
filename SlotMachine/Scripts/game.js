@@ -14,7 +14,8 @@ var stats;
 var assets;
 var manifest = [
     { id: "background", src: "assets/images/slotMachine.png" },
-    { id: "clicked", src: "assets/audio/clicked.wav" }
+    { id: "image1", src: "assets/images/image1.png" },
+    { id: "clicked", src: "assets/audio/clicked.wav" },
 ];
 var atlas = {
     "images": ["assets/images/atlas.png"],
@@ -51,8 +52,13 @@ var atlas = {
 };
 // Game Variables
 var background;
+var image1;
 var textureAtlas;
 var spinButton;
+var resetButton;
+var betOneButton;
+var betTenButton;
+var betMaxButton;
 /* Tally Variables */
 var grapes = 0;
 var bananas = 0;
@@ -162,15 +168,52 @@ function spinButtonClicked(event) {
     fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
     console.log(fruits);
 }
-// Callback functions that change the alpha transparency of the button
+function resetButtonClicked(event) {
+    createjs.Sound.play("clicked");
+    console.log("reset");
+}
+function betOneButtonClicked(event) {
+    createjs.Sound.play("clicked");
+    console.log("Betone");
+}
+function betTenButtonClicked(event) {
+    createjs.Sound.play("clicked");
+    console.log("Betten");
+}
+function betMaxButtonClicked(event) {
+    createjs.Sound.play("clicked");
+    console.log("Bet max");
+}
 // Our Main Game Function
 function main() {
     // add in slot machine graphic
     background = new createjs.Bitmap(assets.getResult("background"));
     stage.addChild(background);
+    image1 = new createjs.Bitmap(assets.getResult("image1"));
+    image1.regX = image1.getBounds().width;
+    image1.regY = image1.getBounds().height;
+    image1.x = 53;
+    image1.y = 173;
+    stage.addChild(image1);
     // add spinButton sprite
-    spinButton = new objects.Button("spinButton", 225, 334, false);
+    spinButton = new objects.Button("spinButton", 255, 334, false);
     stage.addChild(spinButton);
     spinButton.on("click", spinButtonClicked, this);
+    // add resetButton sprite
+    resetButton = new objects.Button("resetButton", 16, 334, false);
+    stage.addChild(resetButton);
+    resetButton.on("click", resetButtonClicked, this);
+    // add betoneButton sprite
+    betOneButton = new objects.Button("betOneButton", 75, 334, false);
+    stage.addChild(betOneButton);
+    betOneButton.on("click", betOneButtonClicked, this);
+    // add betTenButton sprite
+    betTenButton = new objects.Button("betTenButton", 135, 334, false);
+    stage.addChild(betTenButton);
+    betTenButton.on("click", betTenButtonClicked, this);
+    // add betMaxButton sprite
+    betMaxButton = new objects.Button("betMaxButton", 196, 334, false);
+    stage.addChild(betMaxButton);
+    betMaxButton.on("click", betMaxButtonClicked, this);
 }
 //# sourceMappingURL=game.js.map
