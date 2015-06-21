@@ -60,7 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\images\atlas.json" />
-    <Content Include="assets\images\image1.png" />
     <Content Include="assets\images\slot-machine.tps" />
     <Content Include="assets\images\UI Element Positions.xlsx" />
     <Content Include="config\constants.js.map" />
