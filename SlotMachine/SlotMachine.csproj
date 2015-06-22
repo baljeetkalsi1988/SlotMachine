@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\images\atlas.json" />
+    <Content Include="assets\images\blankSymbol.png" />
     <Content Include="assets\images\slot-machine.tps" />
     <Content Include="assets\images\UI Element Positions.xlsx" />
     <Content Include="config\constants.js.map" />
@@ -82,7 +83,6 @@
     <Content Include="assets\images\betMaxButton.png" />
     <Content Include="assets\images\betOneButton.png" />
     <Content Include="assets\images\betTenButton.png" />
-    <Content Include="assets\images\blankSymbol.png" />
     <Content Include="assets\images\button-template.png" />
     <Content Include="assets\images\cherrySymbol.png" />
     <Content Include="assets\images\grapesSymbol.png" />

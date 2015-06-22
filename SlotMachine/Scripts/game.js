@@ -7,11 +7,11 @@
 /// <reference path="../objects/label.ts" />
 /// <reference path="../objects/button.ts" />
 // Game Framework Variables
-///hello
 var canvas = document.getElementById("canvas");
 var stage;
 var stats;
 var assets;
+// Images Manifest
 var manifest = [
     { id: "background", src: "assets/images/slotMachine.png" },
     { id: "clicked", src: "assets/audio/clicked.wav" },
@@ -59,15 +59,18 @@ var atlas = {
 };
 // Game Variables
 var background;
+// Reel1 Bitmap variable
 var reel1;
 var reel2;
 var reel3;
 var textureAtlas;
+// Button variable
 var spinButton;
 var resetButton;
 var betOneButton;
 var betTenButton;
 var betMaxButton;
+//Label Variable
 var jackPotLabel;
 var creditsLabel;
 var betLabel;
@@ -129,7 +132,7 @@ function gameLoop() {
     stage.update();
     stats.end(); // end measuring
 }
-/* Utility function to show Player Stats */
+/* Utility function to show Playe stats and Jackpot Label and Credit Label  Values*/
 function showPlayerStats() {
     winRatio = winNumber / turn;
     console.log("Jackpot: " + jackpot);
@@ -140,18 +143,15 @@ function showPlayerStats() {
     console.log("Win Ratio: " + (winRatio * 100).toFixed(2) + "%");
     stage.removeChild(jackPotLabel);
     stage.removeChild(creditsLabel);
+    // Jackpot Label values added
     jackPotLabel = new objects.Label("" + jackpot, 161, 100, true); //145+16, 96+4
     stage.addChild(jackPotLabel);
+    // Credit Label values added
     creditsLabel = new objects.Label("" + playerMoney, 57, 307, true);
     stage.addChild(creditsLabel);
-    //161	100
-    //57	307
-    //161	307
-    //263	307
 }
 /* Utility function to reset all fruit tallies */
 function resetFruitTally() {
-    //resetAll()
     grapes = 0;
     bananas = 0;
     oranges = 0;
@@ -161,7 +161,7 @@ function resetFruitTally() {
     sevens = 0;
     blanks = 0;
 }
-//ResetAll function
+//Reset All Values function
 function resetAll() {
     playerMoney = 1000;
     winnings = 0;
@@ -172,8 +172,8 @@ function resetAll() {
     lossNumber = 0;
     winRatio = 0;
 }
+/* Jackpot Function compare two random values */
 function checkJackPot() {
-    /* compare two random values */
     var jackPotTry = Math.floor(Math.random() * 51 + 1);
     var jackPotWin = Math.floor(Math.random() * 51 + 1);
     if (jackPotTry == jackPotWin) {
@@ -182,7 +182,7 @@ function checkJackPot() {
         jackpot = 1000;
     }
 }
-/* Utility function to show a win message and increase player money */
+/* Utility function to show a win message and Dispay result*/
 function showWinMessage() {
     playerMoney += winnings;
     console.log("You Won: $" + winnings);
@@ -192,7 +192,7 @@ function showWinMessage() {
     resetFruitTally();
     checkJackPot();
 }
-/* Utility function to show a loss message and reduce player money */
+/* Utility function to show a loss message and Show player money and result */
 function showLossMessage() {
     playerMoney -= playerBet;
     console.log("You Lost!");
@@ -254,6 +254,7 @@ function Reels() {
     }
     return betLine;
 }
+// Caluculate player winning and losing amount
 function determineWinnings() {
     if (blanks == 0) {
         if (grapes == 3) {
@@ -327,7 +328,7 @@ function addimages() {
     reel2 = new createjs.Bitmap(assets.getResult(spinResult[1] + "Symbol"));
     reel2.regX = reel2.getBounds().width * 0.5;
     reel2.regY = reel2.getBounds().height * 0.5;
-    reel2.x = 161; // 53+32
+    reel2.x = 161;
     reel2.y = 205;
     stage.addChild(reel2);
     //Adding images to reel3
@@ -335,10 +336,11 @@ function addimages() {
     reel3 = new createjs.Bitmap(assets.getResult(spinResult[2] + "Symbol"));
     reel3.regX = reel3.getBounds().width * 0.5;
     reel3.regY = reel3.getBounds().height * 0.5;
-    reel3.x = 236; // 53+32
+    reel3.x = 236;
     reel3.y = 205;
     stage.addChild(reel3);
 }
+//Labels and images reset Function
 function lab_img_reset() {
     stage.removeChild(reel1);
     stage.removeChild(reel2);
@@ -388,12 +390,14 @@ function spinButtonClicked(event) {
         alert("Please enter a valid bet amount");
     }
 }
+// Reset Button Click event
 function resetButtonClicked(event) {
     createjs.Sound.play("clicked");
     resetFruitTally();
     resetAll();
     lab_img_reset();
 }
+// betoneButton Click event
 function betOneButtonClicked(event) {
     createjs.Sound.play("clicked");
     console.log("Betone");
@@ -402,6 +406,7 @@ function betOneButtonClicked(event) {
     betLabel = new objects.Label("" + playerBet, 161, 307, true);
     stage.addChild(betLabel);
 }
+// betenButton Click event
 function betTenButtonClicked(event) {
     createjs.Sound.play("clicked");
     playerBet = 10;
@@ -409,6 +414,7 @@ function betTenButtonClicked(event) {
     betLabel = new objects.Label("" + playerBet, 161, 307, true);
     stage.addChild(betLabel);
 }
+// betmaxButton Click event
 function betMaxButtonClicked(event) {
     createjs.Sound.play("clicked");
     playerBet = 100;

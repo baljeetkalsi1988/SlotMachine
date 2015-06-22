@@ -9,16 +9,15 @@
 /// <reference path="../objects/button.ts" />
 
 
-
-
 // Game Framework Variables
-///hello
 
 var canvas = document.getElementById("canvas");
 var stage: createjs.Stage;
 var stats: Stats;
 
 var assets: createjs.LoadQueue;
+// Images Manifest
+
 var manifest = [
     { id: "background", src: "assets/images/slotMachine.png" },
     { id: "clicked", src: "assets/audio/clicked.wav" },
@@ -72,18 +71,22 @@ var atlas = {
 
 // Game Variables
 var background: createjs.Bitmap;
+
+// Reel1 Bitmap variable
 var reel1: createjs.Bitmap;
 var reel2: createjs.Bitmap;
 var reel3: createjs.Bitmap;
 
 
 var textureAtlas: createjs.SpriteSheet;
+// Button variable
 var spinButton: objects.Button;
 var resetButton: objects.Button;
 var betOneButton: objects.Button;
 var betTenButton: objects.Button;
 var betMaxButton: objects.Button;
 
+//Label Variable
 var jackPotLabel: objects.Label;		
 var creditsLabel: objects.Label;		
 var betLabel: objects.Label;
@@ -164,9 +167,10 @@ function gameLoop() {
     stats.end(); // end measuring
 }
 
-/* Utility function to show Player Stats */
+/* Utility function to show Playe stats and Jackpot Label and Credit Label  Values*/
 function showPlayerStats() {
     winRatio = winNumber / turn;
+
     console.log("Jackpot: " + jackpot);
     console.log("Player Money: " + playerMoney);
     console.log("Turn: " + turn);
@@ -176,35 +180,19 @@ function showPlayerStats() {
 
     stage.removeChild(jackPotLabel);
     stage.removeChild(creditsLabel );
-   
-  
-
-    jackPotLabel = new objects.Label("" + jackpot, 161, 100, true);//145+16, 96+4
+   // Jackpot Label values added
+    jackPotLabel = new objects.Label("" + jackpot, 161, 100, true);     //145+16, 96+4
     stage.addChild(jackPotLabel);
 
+   // Credit Label values added
     creditsLabel = new objects.Label("" + playerMoney, 57,307, true);
     stage.addChild(creditsLabel);
-
-   
-
-    
-
-    //161	100
-    //57	307
-    //161	307
-    //263	307
-
-
-
-
-
 }
 
 
 
 /* Utility function to reset all fruit tallies */
 function resetFruitTally() {
-//resetAll()
     grapes = 0;
     bananas = 0;
     oranges = 0;
@@ -215,7 +203,7 @@ function resetFruitTally() {
     blanks = 0;
 }
 
-//ResetAll function
+//Reset All Values function
 function resetAll() {
     playerMoney = 1000;
     winnings = 0;
@@ -227,9 +215,9 @@ function resetAll() {
     winRatio = 0;
 }
 
-
+/* Jackpot Function compare two random values */
 function checkJackPot() {
-    /* compare two random values */
+    
     var jackPotTry = Math.floor(Math.random() * 51 + 1);
     var jackPotWin = Math.floor(Math.random() * 51 + 1);
     if (jackPotTry == jackPotWin) {
@@ -239,7 +227,7 @@ function checkJackPot() {
     }
 }
 
-/* Utility function to show a win message and increase player money */
+/* Utility function to show a win message and Dispay result*/
 function showWinMessage() {
     playerMoney += winnings;
     console.log("You Won: $" + winnings);
@@ -248,14 +236,13 @@ function showWinMessage() {
     resultLabel = new objects.Label("" + winnings, 263, 307, true);
     stage.addChild(resultLabel);
 
-
     resetFruitTally();
     checkJackPot();
 
    
 }
 
-/* Utility function to show a loss message and reduce player money */
+/* Utility function to show a loss message and Show player money and result */
 function showLossMessage() {
     playerMoney -= playerBet;
     console.log("You Lost!");
@@ -323,6 +310,7 @@ function Reels() {
     return betLine;
 }
 
+// Caluculate player winning and losing amount
 function determineWinnings() {
     if (blanks == 0) {
         if (grapes == 3) {
@@ -391,7 +379,7 @@ function addimages() {
     reel1 = new createjs.Bitmap(assets.getResult(spinResult[0] + "Symbol"));
     reel1.regX = reel1.getBounds().width * 0.5;
     reel1.regY = reel1.getBounds().height * 0.5;
-    reel1.x = 85; // 53+32
+    reel1.x = 85;               // 53+32
     reel1.y = 205;
     stage.addChild(reel1);
 
@@ -400,7 +388,7 @@ function addimages() {
     reel2 = new createjs.Bitmap(assets.getResult(spinResult[1] + "Symbol"));
     reel2.regX = reel2.getBounds().width * 0.5;
     reel2.regY = reel2.getBounds().height * 0.5;
-    reel2.x = 161; // 53+32
+    reel2.x = 161;
     reel2.y = 205;
     stage.addChild(reel2);
 
@@ -409,12 +397,13 @@ function addimages() {
     reel3 = new createjs.Bitmap(assets.getResult(spinResult[2] + "Symbol"));
     reel3.regX = reel3.getBounds().width * 0.5;
     reel3.regY = reel3.getBounds().height * 0.5;
-    reel3.x = 236; // 53+32
+    reel3.x = 236; 
     reel3.y = 205;
     stage.addChild(reel3);
 
 }
 
+//Labels and images reset Function
 function lab_img_reset() {
     stage.removeChild(reel1);
     stage.removeChild(reel2);
@@ -474,19 +463,17 @@ function spinButtonClicked(event: createjs.MouseEvent) {
     else {
         alert("Please enter a valid bet amount");
     }
-
-
-      
 }
 
+// Reset Button Click event
 function resetButtonClicked(event: createjs.MouseEvent) {
     createjs.Sound.play("clicked");
     resetFruitTally();
     resetAll();
     lab_img_reset();
-
 }
 
+// betoneButton Click event
 function betOneButtonClicked(event: createjs.MouseEvent) {
     createjs.Sound.play("clicked");
     console.log("Betone");
@@ -497,6 +484,7 @@ function betOneButtonClicked(event: createjs.MouseEvent) {
     stage.addChild(betLabel);
 }
 
+// betenButton Click event
 function betTenButtonClicked(event: createjs.MouseEvent) {
     createjs.Sound.play("clicked");
     playerBet = 10;
@@ -504,6 +492,8 @@ function betTenButtonClicked(event: createjs.MouseEvent) {
     betLabel = new objects.Label("" + playerBet, 161, 307, true);
     stage.addChild(betLabel);
 }
+
+// betmaxButton Click event
 function betMaxButtonClicked(event: createjs.MouseEvent) {
     createjs.Sound.play("clicked");
 
@@ -511,20 +501,13 @@ function betMaxButtonClicked(event: createjs.MouseEvent) {
     stage.removeChild(betLabel);
     betLabel = new objects.Label("" + playerBet, 161, 307, true);
     stage.addChild(betLabel);
-    
-
 }
-
-
-
 
 // Our Main Game Function
 function main() {
     // add in slot machine graphic
     background = new createjs.Bitmap(assets.getResult("background"));
     stage.addChild(background);
-
-  
 
 //Adding intial values to Background
     stage.removeChild(jackPotLabel);
@@ -543,9 +526,6 @@ function main() {
    
     resultLabel = new objects.Label("" + winnings, 263, 307, true);
     stage.addChild(resultLabel);
-
-
-
 
     // add spinButton sprite
     spinButton = new objects.Button("spinButton", 255, 334, false);
@@ -571,7 +551,4 @@ function main() {
     betMaxButton = new objects.Button("betMaxButton", 196, 334, false);
     stage.addChild(betMaxButton);
     betMaxButton.on("click", betMaxButtonClicked, this);
-
-
-
 }
