@@ -16,6 +16,7 @@ var stage: createjs.Stage;
 var stats: Stats;
 
 var assets: createjs.LoadQueue;
+var power = false;
 // Images Manifest
 
 var manifest = [
@@ -29,6 +30,8 @@ var manifest = [
     { id: "OrangeSymbol", src: "assets/images/orangeSymbol.png" },
     { id: "SevenSymbol", src: "assets/images/sevenSymbol.png" },
     { id: "blankSymbol", src: "assets/images/blankSymbol.png" },
+    { id: "power", src: "assets/images/power.png" },
+
 
 ];
 
@@ -72,6 +75,7 @@ var atlas = {
 // Game Variables
 var background: createjs.Bitmap;
 
+
 // Reel1 Bitmap variable
 var reel1: createjs.Bitmap;
 var reel2: createjs.Bitmap;
@@ -85,6 +89,7 @@ var resetButton: objects.Button;
 var betOneButton: objects.Button;
 var betTenButton: objects.Button;
 var betMaxButton: objects.Button;
+var powerbutton: createjs.Bitmap;
 
 //Label Variable
 var jackPotLabel: objects.Label;		
@@ -502,12 +507,31 @@ function betMaxButtonClicked(event: createjs.MouseEvent) {
     betLabel = new objects.Label("" + playerBet, 161, 307, true);
     stage.addChild(betLabel);
 }
+// Power click event
+function powerButtonClicked(event: createjs.MouseEvent) {
+    createjs.Sound.play("clicked");
+    
+    resetFruitTally();
+    resetAll();
+    lab_img_reset();
+        
+}
 
 // Our Main Game Function
 function main() {
     // add in slot machine graphic
     background = new createjs.Bitmap(assets.getResult("background"));
     stage.addChild(background);
+    
+    //Adding Power image
+    stage.removeChild(powerbutton);
+    powerbutton = new createjs.Bitmap(assets.getResult("power"));
+    powerbutton.regX = powerbutton.getBounds().width * 0.5;
+    powerbutton.regY = powerbutton.getBounds().height * 0.5;
+    powerbutton.x = 70;
+    powerbutton.y =85;
+    powerbutton.on("click", powerButtonClicked, this);
+    stage.addChild(powerbutton);
 
 //Adding intial values to Background
     stage.removeChild(jackPotLabel);
@@ -532,6 +556,7 @@ function main() {
     stage.addChild(spinButton);
     spinButton.on("click", spinButtonClicked, this);
     
+    
        // add resetButton sprite
     resetButton = new objects.Button("resetButton", 16, 334, false);
     stage.addChild(resetButton);
@@ -541,6 +566,7 @@ function main() {
     betOneButton = new objects.Button("betOneButton", 75, 334, false);
     stage.addChild(betOneButton);
     betOneButton.on("click", betOneButtonClicked, this);
+    
 
     // add betTenButton sprite
     betTenButton = new objects.Button("betTenButton", 135, 334, false);
@@ -552,3 +578,4 @@ function main() {
     stage.addChild(betMaxButton);
     betMaxButton.on("click", betMaxButtonClicked, this);
 }
+

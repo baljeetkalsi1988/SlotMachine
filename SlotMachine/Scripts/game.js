@@ -11,6 +11,7 @@ var canvas = document.getElementById("canvas");
 var stage;
 var stats;
 var assets;
+var power = false;
 // Images Manifest
 var manifest = [
     { id: "background", src: "assets/images/slotMachine.png" },
@@ -23,6 +24,7 @@ var manifest = [
     { id: "OrangeSymbol", src: "assets/images/orangeSymbol.png" },
     { id: "SevenSymbol", src: "assets/images/sevenSymbol.png" },
     { id: "blankSymbol", src: "assets/images/blankSymbol.png" },
+    { id: "power", src: "assets/images/power.png" },
 ];
 var atlas = {
     "images": ["assets/images/atlas.png"],
@@ -70,6 +72,7 @@ var resetButton;
 var betOneButton;
 var betTenButton;
 var betMaxButton;
+var powerbutton;
 //Label Variable
 var jackPotLabel;
 var creditsLabel;
@@ -422,11 +425,27 @@ function betMaxButtonClicked(event) {
     betLabel = new objects.Label("" + playerBet, 161, 307, true);
     stage.addChild(betLabel);
 }
+// Power click event
+function powerButtonClicked(event) {
+    createjs.Sound.play("clicked");
+    resetFruitTally();
+    resetAll();
+    lab_img_reset();
+}
 // Our Main Game Function
 function main() {
     // add in slot machine graphic
     background = new createjs.Bitmap(assets.getResult("background"));
     stage.addChild(background);
+    //Adding Power image
+    stage.removeChild(powerbutton);
+    powerbutton = new createjs.Bitmap(assets.getResult("power"));
+    powerbutton.regX = powerbutton.getBounds().width * 0.5;
+    powerbutton.regY = powerbutton.getBounds().height * 0.5;
+    powerbutton.x = 70;
+    powerbutton.y = 85;
+    powerbutton.on("click", powerButtonClicked, this);
+    stage.addChild(powerbutton);
     //Adding intial values to Background
     stage.removeChild(jackPotLabel);
     stage.removeChild(creditsLabel);
