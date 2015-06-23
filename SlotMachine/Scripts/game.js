@@ -11,7 +11,7 @@ var canvas = document.getElementById("canvas");
 var stage;
 var stats;
 var assets;
-var power = false;
+var power = true;
 // Images Manifest
 var manifest = [
     { id: "background", src: "assets/images/slotMachine.png" },
@@ -431,6 +431,24 @@ function powerButtonClicked(event) {
     resetFruitTally();
     resetAll();
     lab_img_reset();
+    if (power == true) {
+        powerbutton.alpha = 0.5;
+        spinButton.mouseEnabled = false;
+        resetButton.mouseEnabled = false;
+        betOneButton.mouseEnabled = false;
+        betMaxButton.mouseEnabled = false;
+        betTenButton.mouseEnabled = false;
+        power = false;
+    }
+    else {
+        powerbutton.alpha = 1.0;
+        spinButton.mouseEnabled = true;
+        resetButton.mouseEnabled = true;
+        betOneButton.mouseEnabled = true;
+        betMaxButton.mouseEnabled = true;
+        betTenButton.mouseEnabled = true;
+        power = true;
+    }
 }
 // Our Main Game Function
 function main() {

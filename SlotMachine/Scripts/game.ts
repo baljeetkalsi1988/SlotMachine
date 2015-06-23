@@ -16,7 +16,7 @@ var stage: createjs.Stage;
 var stats: Stats;
 
 var assets: createjs.LoadQueue;
-var power = false;
+var power = true;
 // Images Manifest
 
 var manifest = [
@@ -514,7 +514,26 @@ function powerButtonClicked(event: createjs.MouseEvent) {
     resetFruitTally();
     resetAll();
     lab_img_reset();
-        
+    if (power == true) {
+       
+        powerbutton.alpha = 0.5;
+        spinButton.mouseEnabled = false;
+        resetButton.mouseEnabled = false;
+        betOneButton.mouseEnabled = false;
+        betMaxButton.mouseEnabled = false;
+        betTenButton.mouseEnabled = false;
+        power = false;
+    }
+    else {
+        powerbutton.alpha = 1.0;
+        spinButton.mouseEnabled = true;
+        resetButton.mouseEnabled = true;
+        betOneButton.mouseEnabled = true;
+        betMaxButton.mouseEnabled = true;
+        betTenButton.mouseEnabled = true;
+        power =true;
+    }
+    
 }
 
 // Our Main Game Function
